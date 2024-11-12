@@ -21,26 +21,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install pyenv and Python 3.9
+      - name: Set up pyenv
         run: |
-          # Install dependencies
-          sudo apt-get update
-          sudo apt-get install -y make build-essential libssl-dev zlib1g-dev
-          
-          # Install pyenv
           curl https://pyenv.run | bash
+          echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> $HOME/.bashrc
+          echo 'eval "$(pyenv init --path)"' >> $HOME/.bashrc
+          echo 'eval "$(pyenv init -)"' >> $HOME/.bashrc
+          source $HOME/.bashrc
+        shell: bash
 
-          # Add pyenv to the shell path
-          echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> $GITHUB_ENV
-          echo 'eval "$(pyenv init --path)"' >> $GITHUB_ENV
-          echo 'eval "$(pyenv init -)"' >> $GITHUB_ENV
-          
-          # Restart shell to update PATH
-          source $GITHUB_ENV
-
-          # Install Python 3.9 using pyenv
-          pyenv install 3.9.10
-          pyenv global 3.9.10
+      - name: Install Python version
+        run: |
+          export PATH="$HOME/.pyenv/bin:$PATH"
+          eval "$(pyenv init --path)"
+          eval "$(pyenv init -)"
+          pyenv install 3.9.1
+          pyenv global 3.9.1
 
       - name: Verify Python version
         run: python --version
