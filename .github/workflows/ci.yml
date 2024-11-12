@@ -11,9 +11,11 @@ on:
 
 jobs:
   test:
-    runs-on: 
-      - ubuntu-latest
-      - self-hosted
+    runs-on: ${{ matrix.runner }}  # Dynamically selects the runner based on matrix
+
+    strategy:
+      matrix:
+        runner: [self-hosted, ubuntu-latest]  # Matrix with both runners
 
     steps:
       # 1. Checkout the code from the repository
