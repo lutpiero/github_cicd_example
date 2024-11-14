@@ -11,7 +11,7 @@ on:
 
 jobs:
   
-  test:
+  test: 
     runs-on: ${{ matrix.runner }}    # Dynamically selects the runner based on matrix
 
     strategy:
@@ -51,7 +51,8 @@ jobs:
         run: |
           python -m unittest discover
 
-      - name: Ansible Lint        
-        uses: ansible/ansible-content-actions/.github/workflows/ansible_lint.yaml@main
-        with:
-            args: '-p playbooks'
+  ansible_lint:
+    needs: test  # Ensures this job runs after the `test` job completes
+    uses: ansible/ansible-content-actions/.github/workflows/ansible_lint.yaml@main
+    with:
+      args: '-p playbooks'
