@@ -12,14 +12,14 @@ on:
 jobs:
   
   test:
-    runs-on: ${{ matrix.runner }}  # Dynamically selects the runner based on matrix
+    runs-on: ${{ matrix.runner }}    # Dynamically selects the runner based on matrix
 
     strategy:
       matrix:
-        runner: [self-hosted, ubuntu-latest]  # Matrix with both runners
+        runner: [self-hosted, ubuntu-latest]    # Matrix with both runners
         
     steps:
-      - name: Checkout code
+      - name: Checkout code  
         uses: actions/checkout@v3
 
       - name: Set up pyenv
