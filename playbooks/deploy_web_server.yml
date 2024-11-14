@@ -28,7 +28,7 @@
         mode: '0644'
 
     - name: Ensure Nginx is running and enabled
-      ansible.builtin.servicesss:
+      ansible.builtin.service:
         name: nginx
         state: started
         enabled: true

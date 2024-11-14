@@ -10,10 +10,7 @@ on:
       - main
 
 jobs:
-  ansible-lint:
-    uses: ansible/ansible-content-actions/.github/workflows/ansible_lint.yaml@main
-    with:
-      args: '-p playbooks'
+  
   test:
     runs-on: ${{ matrix.runner }}  # Dynamically selects the runner based on matrix
 
@@ -53,3 +50,8 @@ jobs:
       - name: Run tests
         run: |
           python -m unittest discover
+
+      - name: Ansible Lint        
+        uses: ansible/ansible-content-actions/.github/workflows/ansible_lint.yaml@main
+        with:
+            args: '-p playbooks'
